@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Latest News</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/028/627/219/small_2x/landscape-concept-background-beautiful-meadows-in-springtime-created-with-ai-generative-free-photo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        .container {
+            max-width: 700px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px 40px;
+            color: #fff;
+            animation: fadeIn 1s ease forwards;
+        }
+        h1 {
+            color:  #922b21;
+            font-weight: 600;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 8px  #922b21;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+        a {
+            text-decoration: none;
+            color:  #922b21;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px  #922b21;
+        }
+        .back {
+            margin-bottom: 20px;
+            display: inline-block;
+            color:  #922b21;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .back:hover {
+            color: #fff;
+            text-shadow: 0 0 8px  #922b21;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="back">← Back to Home</a>
+        <h1>📰 Latest News</h1>
+        {% if headlines %}
+            <ul>
+                {% for headline in headlines %}
+                    <li>{{ headline }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No news available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

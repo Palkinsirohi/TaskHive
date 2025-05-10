@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>To-Do List Manager</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-image: url('https://wallpapercave.com/wp/dvbKFz3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px 40px;
+            color: #fff;
+            animation: fadeIn 1s ease forwards;
+        }
+        h1 {
+            color: #ffdd57;
+            font-weight: 600;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 8px #ffdd57;
+        }
+        h1 .icon {
+            font-size: 2.8rem;
+            animation: bounce 2s infinite;
+        }
+        h2 {
+            color: #ffd369;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #ffd369;
+            padding-bottom: 5px;
+        }
+        a.back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ffd369;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        a.back:hover {
+            color: #fff;
+            text-shadow: 0 0 8px #ffd369;
+        }
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        input[type="text"], select {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            flex-grow: 1;
+            min-width: 180px;
+            transition: box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 8px #ffd369;
+        }
+        input[type="submit"], button {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #ffdd57;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(255, 221, 87, 0.5);
+        }
+        input[type="submit"]:hover, button:hover {
+            background: #ffd369;
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(255, 221, 87, 0.7);
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            vertical-align: middle;
+        }
+        th {
+            background: #ffdd57;
+            color: #333;
+            font-weight: 600;
+            text-shadow: none;
+        }
+        tbody tr:hover {
+            background: rgba(255, 221, 87, 0.2);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .actions form {
+            display: inline-block;
+            margin: 0 5px 0 0;
+        }
+        .actions input[type="text"] {
+            width: 140px;
+            padding: 6px 8px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+        }
+        .actions select {
+            padding: 6px 8px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+        }
+        .actions input[type="submit"], .actions button {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+        /* Status colors */
+        .status-todo {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        .status-doing {
+            color: #feca57;
+            font-weight: 600;
+        }
+        .status-done {
+            color: #1dd1a1;
+            font-weight: 600;
+            text-decoration: line-through;
+        }
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="back">← Back to Home</a>
+        <h1><span class="icon">📝</span> To-Do List Manager</h1>
+
+        <h2>Add Task</h2>
+        <form method="post" action="{{ url_for('todo_page') }}">
+            <input type="hidden" name="action" value="add" />
+            <input type="text" name="task" placeholder="Task description" required />
+            <select name="status">
+                <option value="todo" selected>To Do</option>
+                <option value="doing">Doing</option>
+                <option value="done">Done</option>
+            </select>
+            <input type="submit" value="Add Task" />
+        </form>
+
+        <h2>Current Tasks</h2>
+        {% if tasks %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task[0] }}</td>
+                    <td>{{ task[1] }}</td>
+                    <td class="status-{{ task[2] }}">{{ task[2] }}</td>
+                    <td class="actions">
+                        <form method="post" action="{{ url_for('todo_page') }}" style="display:inline;">
+                            <input type="hidden" name="action" value="update" />
+                            <input type="hidden" name="task_id" value="{{ task[0] }}" />
+                            <input type="text" name="task" value="{{ task[1] }}" required />
+                            <select name="status">
+                                <option value="todo" {% if task[2] == 'todo' %}selected{% endif %}>To Do</option>
+                                <option value="doing" {% if task[2] == 'doing' %}selected{% endif %}>Doing</option>
+                                <option value="done" {% if task[2] == 'done' %}selected{% endif %}>Done</option>
+                            </select>
+                            <input type="submit" value="Update" />
+                        </form>
+                        <form method="post" action="{{ url_for('todo_page') }}" style="display:inline;">
+                            <input type="hidden" name="action" value="delete" />
+                            <input type="hidden" name="task_id" value="{{ task[0] }}" />
+                            <button type="submit" onclick="return confirm('Delete this task?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>No tasks found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

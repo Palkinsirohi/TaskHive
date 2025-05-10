@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Weather Update</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/028/627/219/small_2x/landscape-concept-background-beautiful-meadows-in-springtime-created-with-ai-generative-free-photo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px 40px;
+            color: #fff;
+            animation: fadeIn 1s ease forwards;
+        }
+        h1 {
+            color: #2c5aa0;
+            font-weight: 600;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 8px #2c5aa0;
+        }
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #2c5aa0;
+        }
+        input[type="text"] {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            flex-grow: 1;
+            min-width: 180px;
+            transition: box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 8px #2c5aa0;
+        }
+        input[type="submit"] {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #2c5aa0;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(255, 221, 87, 0.5);
+        }
+        input[type="submit"]:hover {
+            background: #2c5aa0;
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(255, 221, 87, 0.7);
+        }
+        .back {
+            margin-bottom: 20px;
+            display: inline-block;
+            color: #2c5aa0;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .back:hover {
+            color: #fff;
+            text-shadow: 0 0 8px #2c5aa0;
+        }
+        .error {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        .weather-info {
+            font-size: 1.2em;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="back">← Back to Home</a>
+        <h1>☀️ Weather Update</h1>
+        <form method="post" action="{{ url_for('weather_page') }}">
+            <label for="city">Enter city:</label>
+            <input type="text" id="city" name="city" value="{{ city }}" required />
+            <input type="submit" value="Get Weather" />
+        </form>
+        {% if weather.error %}
+            <p class="error">{{ weather.error }}</p>
+        {% else %}
+            <div class="weather-info">
+                <p>🌡️ Temperature: {{ weather.temperature_c }}°C</p>
+                <p>☁️ Condition: {{ weather.condition }}</p>
+                <p>💧 Humidity: {{ weather.humidity }}%</p>
+                <p>🌬️ Wind: {{ weather.wind_kph }} km/h</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

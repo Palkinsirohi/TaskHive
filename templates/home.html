@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>TaskHive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/028/627/219/small_2x/landscape-concept-background-beautiful-meadows-in-springtime-created-with-ai-generative-free-photo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px 40px;
+            color: #fff;
+            animation: fadeIn 1s ease forwards;
+        }
+        h1 {
+            color: #ffdd57;
+            font-weight: 600;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 8px #ffdd57;
+        }
+        h1 .icon {
+            font-size: 2.8rem;
+            animation: bounce 2s infinite;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+        a {
+            text-decoration: none;
+            color: #ffdd57;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px #ffdd57;
+        }
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="icon">🌟</span> Smart Personal Dashboard</h1>
+        <ul>
+            <li><a href="{{ url_for('news_page') }}">📰 Latest News</a></li>
+            <li><a href="{{ url_for('weather_page') }}">☀️ Weather Update</a></li>
+            <li><a href="{{ url_for('todo_page') }}">📝 To-Do List</a></li>
+            <li><a href="{{ url_for('quote_page') }}">💬 Random Quote</a></li>
+            <li><a href="#" onclick="window.close();">🚪 Exit</a></li>
+        </ul>
+    </div>
+</body>
+</html>
